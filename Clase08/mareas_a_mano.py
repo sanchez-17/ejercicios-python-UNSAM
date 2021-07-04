@@ -1,0 +1,14 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed May 12 02:55:13 2021
+
+@author: Gaston
+"""
+
+import pandas as pd
+
+df = pd.read_csv('../Data/OBS_SHN_SF-BA.csv', index_col=['Time'], parse_dates=True)
+dh = df['12-25-2014':].copy()
+delta_t = -1 # tiempo que tarda la marea entre ambos puertos
+delta_h = 18.3 # diferencia de los ceros de escala entre ambos puertos
+pd.DataFrame([dh['H_SF'].shift(delta_t) - delta_h, dh['H_BA']]).T.plot()
